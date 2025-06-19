@@ -1,5 +1,6 @@
 package ru.praktikum;
 
+import io.qameta.allure.Step;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -17,45 +18,42 @@ public class RegistrationPage {
     public By afterRegister = By.xpath("//h2[text()='Вход']");
     public By errorPasswordText = By.className("input__error");
 
+
     public RegistrationPage(WebDriver driver) {
         this.driver = driver;
     }
 
+    @Step("Открыть страницу https://stellarburgers.nomoreparties.site/")
     public void openPage() {
         driver.get("https://stellarburgers.nomoreparties.site/");
     }
 
+    @Step("Открыть страницу авторизации")
     public void openLoginPage() {
         driver.findElement(registerButtonOnMainPage).click();
     }
 
+    @Step("Открыть страницу регистрации")
     public void openRegistrationPage() {
         driver.findElement(wayToRegistrationPage).click();
     }
 
-    public void processRegistration(String name, String email, String password) {
-        openPage();
-        openLoginPage();
-        openRegistrationPage();
-        fillFieldName(name);
-        fillFieldEmail(email);
-        fillFieldPassword(password);
-        driver.findElement(buttonRegister).click();
-        openPage();
-    }
-
+    @Step("Заполнить имя")
     public void fillFieldName(String name) {
         driver.findElement(nameFieldLocator).sendKeys(name);
     }
 
+    @Step("Заполнить email")
     public void fillFieldEmail(String email) {
         getEmailInput().sendKeys(email);
     }
 
+    @Step("Заполнить пароль")
     public void fillFieldPassword(String password) {
         driver.findElement(passwordFieldLocator).sendKeys(password);
     }
 
+    @Step("Нажать на кнопку регистрации")
     public void clickButtonRegister() {
         driver.findElement(buttonRegister).click();
     }
@@ -65,10 +63,12 @@ public class RegistrationPage {
         return list.get(1);
     }
 
+    @Step("Вернуть текст на странице после реигстрации")
     public String returnTextAfterRegister() {
         return driver.findElement(afterRegister).getText();
     }
 
+    @Step("Получить текст ошибки при заполнении невалидного пароля")
     public String returnTextAfterEnterIncorrectPassword() {
         fillFieldPassword("123");
         driver.findElement(nameFieldLocator).click();
