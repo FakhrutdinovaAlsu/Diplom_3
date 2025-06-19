@@ -1,3 +1,4 @@
+import io.qameta.allure.Description;
 import io.restassured.RestAssured;
 import org.junit.After;
 import org.junit.Before;
@@ -48,6 +49,7 @@ public class CheckLogInPageTest {
     }
 
     @Test
+    @Description("Проверить вход по кнопке Войти в аккаунт")
     public void logInFromInMainPage() {
         logInPage.openLoginPageFromMainPage();
         logInPage.fillLogInForm(email, password);
@@ -55,6 +57,7 @@ public class CheckLogInPageTest {
     }
 
     @Test
+    @Description("Проверить вход по кнопке Линчый кабинет")
     public void logInFromPersonalAccount() {
         logInPage.openPersonalAccount();
         logInPage.fillLogInForm(email,password);
@@ -62,6 +65,7 @@ public class CheckLogInPageTest {
     }
 
     @Test
+    @Description("Проверить вход через кнопку на форме регистрации")
     public void logInFromFormRegistration() {
         logInPage.openPageRegister();
         logInPage.openLoginPageFromRegisterPage();
@@ -70,6 +74,7 @@ public class CheckLogInPageTest {
     }
 
     @Test
+    @Description("Проверить вход в окне восстановления пароля")
     public void logInFromFormForgotPassword() {
         logInPage.recoverPasswordPage();
         logInPage.openLoginPageFromRecoverPasswordPage();

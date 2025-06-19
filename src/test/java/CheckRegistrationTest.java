@@ -1,4 +1,4 @@
-import io.github.bonigarcia.wdm.WebDriverManager;
+import io.qameta.allure.Description;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -57,6 +57,7 @@ public class CheckRegistrationTest {
     }
 
     @Test
+    @Description("Проверить текст ошибки при вводе не валидного пароля")
     public void checkTextAboutIncorrectPassword() {
         registrationPage.openPage();
         registrationPage.openLoginPage();
