@@ -54,23 +54,10 @@ public class RegistrationPage {
 
     public void fillFieldPassword(String password) {
         driver.findElement(passwordFieldLocator).sendKeys(password);
-        ;
     }
 
     public void clickButtonRegister() {
         driver.findElement(buttonRegister).click();
-    }
-
-    public String returnRandomName() {
-        return RandomStringUtils.randomAlphabetic(10);
-    }
-
-    public String returnRandomPassword() {
-        return RandomStringUtils.randomAlphabetic(10);
-    }
-
-    public String returnRandomEmail() {
-        return RandomStringUtils.randomAlphabetic(10) + "@mail.ru";
     }
 
     private WebElement getEmailInput() {

@@ -6,6 +6,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import ru.praktikum.RegistrationPage;
+import ru.praktikum.UserSteps;
+
 import java.time.Duration;
 import static org.junit.Assert.assertEquals;
 
@@ -15,6 +17,7 @@ public class CheckRegistrationTest {
     private String email;
     private String password;
     private RegistrationPage registrationPage;
+    private UserSteps userSteps = new UserSteps();
 
     @Before
     public void StartUp()  {
@@ -23,9 +26,9 @@ public class CheckRegistrationTest {
         //driver = new FirefoxDriver();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         registrationPage = new RegistrationPage(driver);
-        name = registrationPage.returnRandomName();
-        email = registrationPage.returnRandomEmail();
-        password = registrationPage.returnRandomPassword();
+        name = UserSteps.returnRandomName();
+        email = UserSteps.returnRandomEmail();
+        password = UserSteps.returnRandomPassword();
     }
 
     @Test
@@ -49,7 +52,21 @@ public class CheckRegistrationTest {
     }
 
     @After
-        public void  tearDown() {
+    public void tearDown() {
+        try {
+            // Авторизация только если регистрация прошла успешно
+            if (driver.getCurrentUrl().contains("login")) {
+                String accessToken = userSteps.loginUser(email, password)
+                        .extract()
+                        .path("accessToken");
+                if (accessToken != null) {
+                    userSteps.deleteUser(accessToken);
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Не удалось удалить пользователя: " + e.getMessage());
+        } finally {
             driver.quit();
+        }
     }
 }

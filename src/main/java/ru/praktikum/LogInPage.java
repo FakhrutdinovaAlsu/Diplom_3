@@ -19,6 +19,10 @@ public class LogInPage {
         this.driver = driver;
     }
 
+    public void openPage() {
+        driver.get("https://stellarburgers.nomoreparties.site/");
+    }
+
     public void openLoginPageFromMainPage() {
         driver.findElement(loginButtonOnMainPage).click();
     }
