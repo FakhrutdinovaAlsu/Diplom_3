@@ -2,8 +2,6 @@ import io.qameta.allure.Description;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
 import org.openqa.selenium.WebDriver;
 import ru.praktikum.BrowserFactory;
 import ru.praktikum.RegistrationPage;
@@ -12,7 +10,6 @@ import ru.praktikum.UserSteps;
 import java.time.Duration;
 import static org.junit.Assert.assertEquals;
 
-@RunWith(Parameterized.class)
 public class CheckRegistrationTest {
     private WebDriver driver;
     private String name;
@@ -20,23 +17,10 @@ public class CheckRegistrationTest {
     private String password;
     private RegistrationPage registrationPage;
     private UserSteps userSteps = new UserSteps();
-    private final String browserName;
-
-    public CheckRegistrationTest(String browserName) {
-        this.browserName = browserName;
-    }
-
-    @Parameterized.Parameters(name = "BrowserName")
-    public static Object[][] browsers() {
-        return new Object[][] {
-                {"chrome"},
-                {"yandex"}
-        };
-    }
 
     @Before
     public void StartUp()  {
-        driver = BrowserFactory.getDriver(browserName);
+        driver = BrowserFactory.getDriver();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         registrationPage = new RegistrationPage(driver);
         name = UserSteps.returnRandomName();

@@ -3,8 +3,6 @@ import io.restassured.RestAssured;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
 import org.openqa.selenium.WebDriver;
 import ru.praktikum.*;
 
@@ -12,7 +10,6 @@ import java.time.Duration;
 
 import static org.junit.Assert.assertEquals;
 
-@RunWith(Parameterized.class)
 public class CheckLogInPageTest {
     private WebDriver driver;
     private String name;
@@ -21,23 +18,10 @@ public class CheckLogInPageTest {
     private RegistrationPage registrationPage;
     private LogInPage logInPage;
     private UserSteps userSteps = new UserSteps();
-    private final String browserName;
-
-    public CheckLogInPageTest(String browserName) {
-        this.browserName = browserName;
-    }
-
-    @Parameterized.Parameters(name = "BrowserName")
-    public static Object[][] browsers() {
-        return new Object[][] {
-                {"chrome"},
-                {"yandex"}
-        };
-    }
 
     @Before
     public void StartUp() {
-        driver = BrowserFactory.getDriver(browserName);
+        driver = BrowserFactory.getDriver();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         RestAssured.baseURI = ApiConfig.getBaseUrl();
         email = userSteps.returnRandomEmail();
